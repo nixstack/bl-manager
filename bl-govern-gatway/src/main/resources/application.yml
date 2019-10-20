@@ -1,0 +1,46 @@
+server:
+  port: ${PORT:39102} # 环境参数
+  servlet:
+    context-path: /api
+spring:
+  application:
+    name: bl-govern-gateway
+eureka:
+  client:
+    registerWithEureka: true #服务注册开关
+    fetchRegistry: true #服务发现开关
+    serviceUrl: #Eureka客户端与Eureka服务端进行交互的地址，多个中间用逗号分隔
+      defaultZone: ${EUREKA_SERVER:http://localhost:39101/eureka/}
+  instance:
+    prefer-ip-address:  true  #将自己的ip地址注册到Eureka服务中
+    ip-address: ${IP_ADDRESS:127.0.0.1}
+    instance-id: ${spring.application.name}:${server.port} #指定实例id
+zuul:
+  routes:
+    service-cms:
+      path: /cms/**
+      serviceId: bl-service-cms # spring.application.name，从eureka中获取实例进行转发
+      #url: http://wwww.baidu.com # 也可指定url
+      strip-prefix: false # 代理转发时是否去掉前缀
+      sensitiveHeaders:  # 默认zuul会屏蔽cookie，cookie不会传到下游服务，这里设置为空则取消默认的黑名单，如果设置了具体的头信息则不会传到下游服务
+      #   ignoredHeaders: 默认为空表示不过虑任何头
+    service-course:
+      path: /course/**
+      serviceId: bl-service-course
+      strip-prefix: false
+      sensitiveHeaders:
+    service-category:
+      path: /category/**
+      serviceId: bl-service-course
+      strip-prefix: false
+      sensitiveHeaders:
+    component-filesystem:
+      path: /filesystem/**
+      serviceId: bl-component-filesystem
+      strip-prefix: false
+      sensitiveHeaders:
+    component-search:
+      path: /search/**
+      serviceId: bl-component-search
+      strip-prefix: false
+      sensitiveHeaders:
