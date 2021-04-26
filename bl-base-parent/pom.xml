@@ -15,7 +15,7 @@
         <bl-base-model.version>1.0-SNAPSHOT</bl-base-model.version>
         <bl-base-api.version>1.0-SNAPSHOT</bl-base-api.version>
 
-        <commons-io.version>2.6</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <commons-lang3.version>3.6</commons-lang3.version>
         <commons-text.veraion>1.7</commons-text.veraion>
         <guava.version>24.0-jre</guava.version>
